@@ -1,7 +1,11 @@
-#include <iostream>
+#pragma once
+
 using namespace std;
 
 #include "LidDrivenCavity.h"
+
+#include <iostream>
+#include "config.h"
 
 int main(int argc, char **argv)
 {
