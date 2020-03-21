@@ -6,6 +6,7 @@ using namespace std;
 
 #include <iostream>
 #include "config.h"
+#include "matrix_helpers.h"
 
 int main(int argc, char **argv)
 {

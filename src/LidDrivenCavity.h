@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include "config.h" 
+
 using namespace std;
 
 class LidDrivenCavity
@@ -21,15 +23,23 @@ public:
     // Add any other public functions
 
 private:
-    double* v = nullptr;
-    double* s = nullptr;
+    double* v = nullptr;    // Vorticity
+    double* s = nullptr;    // Stream function
 
-    double dt;
-    double T;
-    int    Nx;
-    int    Ny;
-    double Lx;
-    double Ly;
-    double Re;
+    // User parameters
+    double dt = DT;
+    double T = T;
+    int    Nx = NX;
+    int    Ny = NY;
+    double Lx = LX;
+    double Ly = LY;
+    double Re = RE;
+
+    // Non user-modifiable parameters
+
+    const double DX = Lx/(Nx - 1);
+    const double DY = Ly/(Nx - 1);
+    const double DT_MAX = (Re * DX * DY) / 4;
+    
 };
 

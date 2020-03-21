@@ -30,6 +30,9 @@ void LidDrivenCavity::SetReynoldsNumber(double re)
 
 void LidDrivenCavity::Initialise()
 {
+    // TODO:
+    // Assign the memory for the vorticity, stream function
+    // Initialise that memory to 0
 }
 
 void LidDrivenCavity::Integrate()
