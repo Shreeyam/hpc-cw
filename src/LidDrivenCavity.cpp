@@ -44,10 +44,15 @@ void LidDrivenCavity::Initialise()
     // TODO:
     // Assign the memory for the vorticity, stream function
     // Initialise that memory to all zeros
+    // Precompute an A matrix (for the Poisson solver)
     // I think that's it? Anything else...? Hmm...
 
     v = new double[Nx * Ny];
     s = new double[Nx * Ny];
+
+    A = new double[(Nx * Ny) * (Ny + 1)];
+
+    constructA();
 
     zeroMat(Nx, Ny, v);
     zeroMat(Nx, Ny, v);
@@ -60,20 +65,31 @@ void LidDrivenCavity::Integrate()
     updateBoundaries();
     // 2. Update v in interior
     updateInterior();
+    #ifdef DEBUG
+    cout << "Vorticity v: " << endl;
+    printMat(Nx, Ny, v);
+    #endif
     // 3. Compute vorticity at t + dt in the interior
     newInterior();
     // 4. Solve poisson equation to compute s at time t + dt
     solvePoisson();
+    // 4b. Possible reconstruct A?
 }
 
 void LidDrivenCavity::updateBoundaries()
 {
     // Update boundary conditions per side`
     // Top
+    // cout << "Pre-anything";
+    // printMat(Nx, Ny, v);
+
     for (int i = 0; i < Nx; i++)
     {
         v[(Ny - 1) + i * Ny] = (s[(Ny - 1) + i * Ny] - s[(Ny - 2) + i * Ny]) * (2 / dy2) - ((2 * U) / (dy));
     }
+
+    // cout << "Post-top BC";
+    // printMat(Nx, Ny, v);
 
     // Bottom
     for (int i = 0; i < Nx; i++)
@@ -81,22 +97,30 @@ void LidDrivenCavity::updateBoundaries()
         v[(0) + i * Ny] = (s[(0) + i * Ny] - s[(1) + i * Ny]) * (2 / dy2);
     }
 
+    // cout << "Post-bottom BC";
+    // printMat(Nx, Ny, v);
+
     // Left
     for (int j = 0; j < Ny; j++)
     {
-        v[(j) + (0) * Ny] = (s[(j) + (0) * Ny] - s[(j) + (1) * Ny]) * (2/dx2);
+        v[(j) + (0) * Ny] = (s[(j) + (0) * Ny] - s[(j) + (1) * Ny]) * (2 / dx2);
     }
+
+    // cout << "Post-left BC";
+    // printMat(Nx, Ny, v);
 
     // Right
     for (int j = 0; j < Ny; j++)
     {
-        v[(j) + (0) * Ny] = (s[(j) + (Nx - 1) * Ny] - s[(j) + (Nx - 2) * Ny]) * (2/dx2);
+        v[(j) + (Nx - 1) * Ny] = (s[(j) + (Nx - 1) * Ny] - s[(j) + (Nx - 2) * Ny]) * (2 / dx2);
     }
+
+    // cout << "Post-right BC";
+    // printMat(Nx, Ny, v);
 }
 
 void LidDrivenCavity::updateInterior()
 {
-
     for (int j = 1; j < Ny - 1; j++)
     {
         for (int i = 1; i < Nx - 1; i++)
@@ -109,7 +133,39 @@ void LidDrivenCavity::updateInterior()
 }
 void LidDrivenCavity::newInterior()
 {
+    // Split each term on a new line or I'm never gonna be able to read this
+    for (int j = 1; j < Ny - 1; j++)
+    {
+        for (int i = 1; i < Nx - 1; i++)
+        {
+            v[i * Ny + j] += dt * (
+                -1 *    (((s[i * Ny + (j + 1)] - s[i * Ny + (j - 1)])/(2 * dy)) * ((v[(i + 1) * Ny + (j)] - v[(i - 1) * Ny + (j)])/(2 * dx)))
+                +       (((s[(i + 1) * Ny + j] - s[(i - 1) * Ny + j])/(2 * dx)) * ((v[(i) * Ny + (j+1)] - v[(i) * Ny + (j-1)])/(2 * dy)))
+                + ((1/Re)*(((v[(i + 1) * Ny + (j)] - 2 * v[(i) * Ny + (j)] + v[(i - 1) * Ny + (j)])/(dx2)) + ((v[(i) * Ny + (j + 1)] - 2 * v[(i) * Ny + (j)] + v[(i) * Ny + (j - 1)])/(dy2))))
+            );
+        }
+    }
 }
+
 void LidDrivenCavity::solvePoisson()
 {
+    
+}
+
+void LidDrivenCavity::constructA()
+{
+    // Split each term on a new line or I'm never gonna be able to read this
+    for (int i = 0; i < Nx * Ny; i++)
+    {
+        // j = 0 (highest superdiagonal)
+        A[i * (Ny+1) + (0)] = -1/dx2;
+        // j = Ny-1 (first superdiagonal)
+        A[i * (Ny+1) + (Ny-1)] = -1/dy2;
+        // j = Ny (leading diagonal)
+        A[i * (Ny+1) + (Ny)] = 2/dy2 + 2/dx2;
+    }
+
+    #ifdef DEBUG
+    printMat(Nx * Ny, Ny + 1, A);
+    #endif
 }

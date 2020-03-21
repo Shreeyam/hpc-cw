@@ -11,6 +11,7 @@ int main(int argc, char **argv)
     // Create a new instance of the LidDrivenCavity class
     LidDrivenCavity* solver = new LidDrivenCavity();
 
+    cout << "Initialising solver..." << endl;
     // Configure the solver here...
     // ...
     solver->Initialise();
