@@ -13,14 +13,14 @@ using namespace std;
 // Iterators to print row wise and then col wise will go
 // for(j) { for(i) { ... }}
 
-void printVec(int Ny, double *A)
+void printVec(int Ny, double* A)
 {
     for (int j = 0; j < Ny; j++)
     {
         cout << A[j] << endl;
     }
 }
-void printMat(int Nx, int Ny, double *A)
+void printMat(int Nx, int Ny, double* A)
 {
     for (int j = 0; j < Ny; j++)
     {
@@ -33,7 +33,7 @@ void printMat(int Nx, int Ny, double *A)
 }
 
 // Dumps as a csv
-void dumpVec(int Ny, double *A)
+void dumpVec(int Ny, double* A)
 {
     ofstream csv("dump.csv", ios::out | ios::trunc);
 
@@ -49,7 +49,7 @@ void dumpVec(int Ny, double *A)
 
     csv.close();
 }
-void dumpMat(int Nx, int Ny, double *A)
+void dumpMat(int Nx, int Ny, double* A)
 {
     ofstream csv("dump.csv", ios::out | ios::trunc);
 
