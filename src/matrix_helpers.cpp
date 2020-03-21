@@ -71,3 +71,22 @@ void dumpMat(int Nx, int Ny, double* A)
 
     csv.close();
 }
+
+void zeroVec(int Ny, double* A)
+{
+    for (int j = 0; j < Ny; j++)
+    {
+        A[j] = 0;
+    }
+}
+
+void zeroMat(int Nx, int Ny, double* A)
+{
+    for (int j = 0; j < Ny; j++)
+    {
+        for (int i = 0; i < Nx; i++)
+        {
+            A[j + i * Ny] = 0;
+        }
+    }
+}

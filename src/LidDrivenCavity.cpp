@@ -1,4 +1,5 @@
 #include "LidDrivenCavity.h"
+#include "matrix_helpers.h"
 
 LidDrivenCavity::LidDrivenCavity()
 {
@@ -43,6 +44,14 @@ void LidDrivenCavity::Initialise()
     // TODO:
     // Assign the memory for the vorticity, stream function
     // Initialise that memory to all zeros
+    // I think that's it? Anything else...? Hmm...
+
+    v = new double[Nx*Ny];
+    s = new double[Nx*Ny];
+
+    zeroMat(Nx, Ny, v);
+    zeroMat(Nx, Ny, v);
+
 }
 
 void LidDrivenCavity::Integrate()
