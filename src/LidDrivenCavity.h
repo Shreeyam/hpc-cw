@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <math.h>
 #include "config.h" 
 
 using namespace std;
@@ -37,9 +38,19 @@ private:
 
     // Non user-modifiable parameters
 
-    const double DX = Lx/(Nx - 1);
-    const double DY = Ly/(Nx - 1);
-    const double DT_MAX = (Re * DX * DY) / 4;
+    const double dx = Lx/(Nx - 1);
+    const double dy = Ly/(Nx - 1);
+    const double DT_MAX = (Re * dx * dy) / 4;
+    const double U = 1.0;
+
+    // Precomputed powers
+    const double dx2 = pow(dx, 2);  
+    const double dy2 = pow(dy, 2);  
+
+    void updateBoundaries();
+    void updateInterior();
+    void newInterior();
+    void solvePoisson();
     
 };
 
