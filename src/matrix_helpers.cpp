@@ -80,13 +80,28 @@ void zeroVec(int Ny, double* A)
     }
 }
 
-void zeroMat(int Nx, int Ny, double* A)
+void zeroVec(int Ny, int* A)
 {
     for (int j = 0; j < Ny; j++)
     {
-        for (int i = 0; i < Nx; i++)
-        {
-            A[j + i * Ny] = 0;
-        }
+        A[j] = 0;
     }
+}
+
+void zeroMat(int Nx, int Ny, double* A)
+{
+    zeroVec(Nx * Ny, A);
+}
+
+void copyVec(int Ny, double* A, double* B)
+{
+    for (int j = 0; j < Ny; j++)
+    {
+        B[j] = A[j];
+    }
+}
+
+void copyMat(int Nx, int Ny, double* A, double*B)
+{
+    copyVec(Nx * Ny, A, B);
 }

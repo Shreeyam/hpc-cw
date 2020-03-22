@@ -36,6 +36,7 @@ void dumpMat(int Nx, int Ny, double* A);
 * @param A The pointer to the vector itself
 */
 void zeroVec(int Ny, double* A);
+void zeroVec(int Ny, int* A);
 
 /*
 * @brief Zeros all the elements of a matrix 
@@ -44,3 +45,7 @@ void zeroVec(int Ny, double* A);
 * @param A The pointer to the vector itself
 */
 void zeroMat(int Nx, int Ny, double* A);
+
+// Copies A into B
+void copyVec(int Ny, double* A, double*B);
+void copyMat(int Nx, int Ny, double* A, double*B);

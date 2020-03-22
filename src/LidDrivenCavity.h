@@ -26,9 +26,12 @@ public:
 private:
     double* v = nullptr;    ///< Vorticity
     double* s = nullptr;    ///< Stream function
+    double* x = nullptr;    ///< Poisson equation matrix
+
+    int* P = nullptr;    ///< Pivot vector
 
     double* A = nullptr;    ///< Poisson equation matrix
-    // DPBTRS
+
     // User parameters (initialise to defaults)
     double dt = DT;
     double T = T;
@@ -47,8 +50,8 @@ private:
     const double DT_MAX = (Re * dx * dy) / 4;
 
     // Precomputed powers
-    const double dx2 = 1;//pow(dx, 2);  
-    const double dy2 = 1;//pow(dy, 2);  
+    const double dx2 = pow(dx, 2);  
+    const double dy2 = pow(dy, 2);  
 
     void updateBoundaries();
     void updateInterior();

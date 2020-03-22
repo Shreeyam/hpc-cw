@@ -12,6 +12,9 @@ CXXFLAGS := --std=c++11 -Wall -O2
 LDFLAGS  := 
 LDLIBS   := -llapack -lblas
 
+DEBUGFLAGS:=
+PRODFLAGS:=
+
 .PHONY: all clean
 
 all: $(EXE)
@@ -28,3 +31,9 @@ $(OBJ_DIR):
 clean:
 	-rm -f $(EXE)
 	-rm -f $(OBJ_DIR)/*.o
+
+debug: clean $(EXE)
+	./$(EXE) $(DEBUGFLAGS)
+
+production: clean $(EXE)
+	./$(EXE) $(PRODFLAGS)
