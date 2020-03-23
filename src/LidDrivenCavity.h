@@ -26,7 +26,7 @@ public:
 private:
     double* v = nullptr;    ///< Vorticity
     double* s = nullptr;    ///< Stream function
-    double* x = nullptr;    ///< Poisson equation matrix
+    double* b = nullptr;    ///< Serial working matrix
 
     int* P = nullptr;    ///< Pivot vector
 

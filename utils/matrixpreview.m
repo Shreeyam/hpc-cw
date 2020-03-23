@@ -2,17 +2,20 @@
 
 clc;
 clear;
-close all;
+% close all;
 
 %% Load
 
-vorticity = readmatrix('vorticity.csv');
-stream = readmatrix('stream.csv');
+vorticity = csvread('161x161-1000steps.csv');
+% stream = readmatrix('stream.csv');
 
 %% Plot
 
-disp(vorticity);
-disp(stream);
+% disp(vorticity);
+% disp(stream);
 
 figure;
-sub
+contourf(vorticity);
+improvePlot;
+title("C++ Sim Vorticity");
+% sub

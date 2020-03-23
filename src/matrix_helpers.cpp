@@ -55,7 +55,7 @@ void dumpMat(int Nx, int Ny, double* A)
 {
     ofstream csv("dumpmatrix.csv", ios::out | ios::trunc);
 
-    csv.precision(5);
+    csv.precision(10);
 
     if (csv.good())
     {
@@ -63,9 +63,9 @@ void dumpMat(int Nx, int Ny, double* A)
         {
             for (int i = 0; i < Nx; i++)
             {
-                cout << A[j + i * Ny] << " ";
+                csv << A[j + i * Ny] << ", ";
             }
-            cout << "," <<  endl;
+            csv << "," <<  endl;
         }
     }
 
