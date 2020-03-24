@@ -5,8 +5,8 @@ close all;
 Lx = 1;
 Ly = 1;
 
-Ny = 100;
-Nx = 100;
+Ny = 5;
+Nx = 5;
 
 dx = Lx/(Nx-1);
 dy = Ly/(Ny-1);
@@ -14,8 +14,8 @@ dx2 = dx^2;
 dy2 = dy^2;
 
 U = 1;
-Re = 100;
-dt = (Re * dx * dy)/4;
+Re = 3200;
+dt = (Re * dx * dy)/(4);
 
 subpdiags = ones(1, (Ny-2) * (Nx-2) - 1) * (-1/dy2);
 subpdiags(Ny-2:Ny-2:end) = 0;
@@ -79,13 +79,13 @@ s(2:end-1, 2:end-1) = reshape(psi_vec, [Ny-2, Nx-2]);
 end
 
 figure;
-imagesc(v);
+imagesc(s);
 improvePlot;
 title("MATLAB Sim Vorticity");
 
 %%
-figure;
-vorticity = csvread('dumpmatrix.csv');
-imagesc(abs(v - vorticity(:, 1:end-2)));
-title('Deltas');
-colorbar;
+% figure;
+% vorticity = csvread('dumpmatrix.csv');
+% imagesc(abs(v - vorticity(:, 1:end-2)));
+% title('Deltas');
+% colorbar;
