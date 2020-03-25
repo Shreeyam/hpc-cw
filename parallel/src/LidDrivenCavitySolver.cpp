@@ -48,6 +48,8 @@ int main(int argc, char **argv)
         {
             if (rank == 0)
                 cout << "Invalid arguments" << endl;
+
+            return 0;
         }
 
         MPI_Comm_size(MPI_COMM_WORLD, &np);
@@ -55,6 +57,8 @@ int main(int argc, char **argv)
         {
             if (rank == 0)
                 cout << "np must equal Px * Py" << endl;
+
+            return 0;
         }
 
         // If we make it here without any exceptions, print the arguments
