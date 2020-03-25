@@ -13,7 +13,7 @@ const int NX = 161;
 const int NY = 161;
 const double PX = 1;
 const double PY = 1;
-const double T = 1;
+const double TMAX = 1;
 const double RE = 100;
 const double DT = 0.01;
 

@@ -29,6 +29,7 @@ void dumpVec(int Ny, double* A);
 * @param A The pointer to the vector itself
 */
 void dumpMat(int Nx, int Ny, double* A);
+void dumpMat(int Nx, int Ny, double* A, char* fname);
 
 /*
 * @brief Zeros all the elements of a vector

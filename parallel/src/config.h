@@ -9,8 +9,8 @@
 // User parameters
 const double LX = 1;
 const double LY = 1;
-const int NX = 12;
-const int NY = 12;
+const int NX = 5;
+const int NY = 5;
 const double PX = 2;
 const double PY = 2;
 const double TMAX = 1;

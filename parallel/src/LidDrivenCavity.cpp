@@ -23,6 +23,13 @@ void LidDrivenCavity::SetGridSize(int nx, int ny)
     Ny = ny;
 }
 
+void LidDrivenCavity::SetPartitions(int px, int py)
+{
+    Px = px;
+    Py = py;
+}
+
+
 void LidDrivenCavity::SetTimeStep(double deltat)
 {
     dt = deltat;
@@ -337,8 +344,6 @@ void LidDrivenCavity::emptytxbuf(double *dest)
 void LidDrivenCavity::deserialize(double *v_s, double *v)
 {
     // Organise this back into matrix v from v_s...
-    int cursor = 0;
-
     for (int i = 0; i < Px; i++)
     {
         for (int j = 0; j < Py; j++)

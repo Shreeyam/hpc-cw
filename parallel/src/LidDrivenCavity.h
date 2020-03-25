@@ -18,6 +18,7 @@ public:
 
     void SetDomainSize(double xlen, double ylen);
     void SetGridSize(int nx, int ny);
+    void SetPartitions(int px, int py);
     void SetTimeStep(double deltat);
     void SetFinalTime(double finalt);
     void SetReynoldsNumber(double Re);

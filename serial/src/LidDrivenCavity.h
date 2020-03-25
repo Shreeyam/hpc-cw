@@ -2,6 +2,7 @@
 
 #include <string>
 #include <math.h>
+#include "poisson.h"
 #include "config.h" 
 
 using namespace std;
@@ -28,13 +29,11 @@ private:
     double* s = nullptr;    ///< Stream function
     double* b = nullptr;    ///< Serial working matrix
 
-    int* P = nullptr;    ///< Pivot vector
-
     double* A = nullptr;    ///< Poisson equation matrix
 
     // User parameters (initialise to defaults)
     double dt = DT;
-    double T = T;
+    double T = TMAX;
     int    Nx = NX;
     int    Ny = NY;
     double Lx = LX;
@@ -56,8 +55,8 @@ private:
     void updateBoundaries();
     void updateInterior();
     void newInterior();
-    void solvePoisson();
     void constructA();
     
+    Poisson* poisson;
 };
 

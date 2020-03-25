@@ -51,9 +51,9 @@ void dumpVec(int Ny, double* A)
     csv.close();
 }
 
-void dumpMat(int Nx, int Ny, double* A)
+void dumpMat(int Nx, int Ny, double* A, char* fname)
 {
-    ofstream csv("dumpmatrix.csv", ios::out | ios::trunc);
+    ofstream csv(fname, ios::out | ios::trunc);
 
     csv.precision(10);
 

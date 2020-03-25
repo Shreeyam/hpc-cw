@@ -1,6 +1,8 @@
 #include "parallel.h"
 
-int dist_junk;
+// Contains resources for parallelisation
+// Technically poisson solve is not in its own class
+// But putting it globally in a header made my life a lot easier
 
 void premultA(int row_size, int row_beginning, int K, int Ny, double dx2, double dy2, double *r0_l, double *x, double *b_l, double alpha)
 {
