@@ -21,15 +21,37 @@ public:
     // Add any other public functions
 
 private:
-    double* v = nullptr;
-    double* s = nullptr;
+    // Global variables, not allocated except for output!
+    double* v = nullptr;    ///< Vorticity
+    double* s = nullptr;    ///< Stream function
+    double* b = nullptr;    ///< Serial working matrix
 
-    double dt;
-    double T;
-    int    Nx;
-    int    Ny;
-    double Lx;
-    double Ly;
-    double Re;
+    double* A = nullptr;    ///< Poisson equation matrix
+
+    // User parameters (initialise to defaults)
+    double dt = DT;
+    double T = T;
+    int    Nx = NX;
+    int    Ny = NY;
+    double Lx = LX;
+    double Ly = LY;
+    double Re = RE;
+
+    // Non user-modifiable parameters
+    const double U = 1.0;
+
+    // Derived parameters
+    const double dx = Lx/(Nx - 1);
+    const double dy = Ly/(Nx - 1);
+    const double DT_MAX = (Re * dx * dy) / 4;
+
+    // Precomputed powers
+    const double dx2 = pow(dx, 2);  
+    const double dy2 = pow(dy, 2);  
+
+    void updateBoundaries();
+    void updateInterior();
+    void newInterior();
+    void solvePoisson();
 };
 
