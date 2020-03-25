@@ -7,6 +7,7 @@
 */
 void printVec(int Ny, double* A);
 void printVecH(int Ny, double* A);
+void printVecH(int Ny, int* A);
 
 /*
 * @brief Dumps a (col-major!) matrix to stdout 

@@ -5,8 +5,8 @@ close all;
 Lx = 1;
 Ly = 1;
 
-Ny = 5;
-Nx = 5;
+Ny = 10;
+Nx = 10;
 
 dx = Lx/(Nx-1);
 dy = Ly/(Ny-1);
@@ -14,8 +14,8 @@ dx2 = dx^2;
 dy2 = dy^2;
 
 U = 1;
-Re = 3200;
-dt = (Re * dx * dy)/(4);
+Re = 100;
+dt = (Re * dx * dy)/(4 * 32);
 
 subpdiags = ones(1, (Ny-2) * (Nx-2) - 1) * (-1/dy2);
 subpdiags(Ny-2:Ny-2:end) = 0;
@@ -39,7 +39,7 @@ s = zeros(Ny, Nx);
 
 %% Implementing algorithm in MATLAB
 
-for i = 1:1
+for i = 1:100
 % Update vorticity boundary conditions
 
 % Top

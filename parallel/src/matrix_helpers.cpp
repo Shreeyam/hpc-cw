@@ -31,6 +31,15 @@ void printVecH(int Ny, double* A)
     cout << endl;
 }
 
+void printVecH(int Ny, int* A)
+{
+    for (int j = 0; j < Ny; j++)
+    {
+        cout << A[j] << " ";
+    }
+    cout << endl;
+}
+
 void printMat(int Nx, int Ny, double* A)
 {
     for (int j = 0; j < Ny; j++)

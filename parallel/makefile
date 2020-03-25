@@ -6,11 +6,11 @@ OBJ_DIR := obj
 SRC := $(wildcard $(SRC_DIR)/*.cpp)
 OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-CC:=g++
+CC:=mpicxx
 CPPFLAGS := -I./include
 CXXFLAGS := --std=c++11 -Wall -O2
 LDFLAGS  := 
-LDLIBS   := -llapack -lblas
+LDLIBS   := #-llapack -lblas
 
 DEBUGFLAGS:=
 PRODFLAGS:=
@@ -32,8 +32,8 @@ clean:
 	-rm -f $(EXE)
 	-rm -f $(OBJ_DIR)/*.o
 
-debug: clean $(EXE)
+debug: $(EXE)
 	./$(EXE) $(DEBUGFLAGS)
 
-production: clean $(EXE)
+production: $(EXE)
 	./$(EXE) $(PRODFLAGS)

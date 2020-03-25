@@ -2,32 +2,32 @@
 
 int dist_junk;
 
-void premultA(int row_size, int row_beginning, int K, int Ny, double *r0_l, double *x, double *b_l, double alpha)
+void premultA(int row_size, int row_beginning, int K, int Ny, double dx2, double dy2, double *r0_l, double *x, double *b_l, double alpha)
 {
     for (int i = 0; i < row_size; i++)
     {
         // Actual row on the matrix
         int j = i + row_beginning;
-        r0_l[i] = 64 * x[j];
+        r0_l[i] = (2/dx2 + 2/dy2) * x[j];
 
         if (j + 1 < Ny && (j + 1) % (K) != 0)
         {
-            r0_l[i] += -16 * x[j + 1];
+            r0_l[i] += -(1/dx2) * x[j + 1];
         }
 
         if (j + K < Ny)
         {
-            r0_l[i] += -16 * x[j + K];
+            r0_l[i] += -(1/dx2) * x[j + K];
         }
 
         if (j >= K)
         {
-            r0_l[i] += -16 * x[j - K];
+            r0_l[i] += -(1/dy2) * x[j - K];
         }
 
         if (j >= 1 && (j) % (K) != 0)
         {
-            r0_l[i] += -16 * x[j - 1];
+            r0_l[i] += -(1/dy2) * x[j - 1];
         }
 
         if (b_l != nullptr)
@@ -113,7 +113,7 @@ void pcgd(int rank, int size,     ///< MPI formulation
 
     // Matrix multiplication and subtraction for r0_l and x
     // Lucky fucking guess at the indices
-    premultA(row_size, row_beginning, K, Ny, r0_l, x, b_l, -1.0);
+    premultA(row_size, row_beginning, K, Ny, dx2, dy2, r0_l, x, b_l, -1.0);
 
     copyVec(Nbl, r0_l, p0_l);
 
@@ -126,7 +126,7 @@ void pcgd(int rank, int size,     ///< MPI formulation
 
     do
     {
-        premultA(row_size, row_beginning, K, Ny, Apk_l, p0, nullptr, -1.0);
+        premultA(row_size, row_beginning, K, Ny, dx2, dy2, Apk_l, p0, nullptr, -1.0);
 
         // Don't forget to redistribute locals!
 
@@ -171,11 +171,6 @@ void pcgd(int rank, int size,     ///< MPI formulation
         k++;
 
     } while (error > CGD_TOL);
-
-    if (rank == 0)
-    {
-        printVecH(Ny, x);
-    }
 
     delete[] r0;
     delete[] r1;

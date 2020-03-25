@@ -6,7 +6,7 @@ clear;
 
 %% Load
 
-vorticity = csvread('161x161-1000steps.csv');
+vorticity = csvread('dumpmatrix.csv');
 % stream = readmatrix('stream.csv');
 
 %% Plot

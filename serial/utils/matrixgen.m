@@ -5,8 +5,8 @@ close all;
 Lx = 1;
 Ly = 1;
 
-Ny = 5;
-Nx = 5;
+Ny = 12;
+Nx = 12;
 
 dx = Lx/(Nx-1);
 dy = Ly/(Ny-1);
@@ -14,8 +14,8 @@ dx2 = dx^2;
 dy2 = dy^2;
 
 U = 1;
-Re = 3200;
-dt = (Re * dx * dy)/(4);
+Re = 100;
+dt = 1e-4;%(Re * dx * dy)/(4);
 
 subpdiags = ones(1, (Ny-2) * (Nx-2) - 1) * (-1/dy2);
 subpdiags(Ny-2:Ny-2:end) = 0;
@@ -39,7 +39,7 @@ s = zeros(Ny, Nx);
 
 %% Implementing algorithm in MATLAB
 
-for i = 1:1
+for i = 1:10000
 % Update vorticity boundary conditions
 
 % Top
@@ -68,6 +68,7 @@ for i = 2:Nx-1
         term1 = -1 * (((s(j+1, i) - s(j-1, i))/(2 * dy))*((v(j, i+1) - v(j, i-1))/(2 * dx)));
         term2 = (((s(j, i+1) - s(j, i-1))/(2 * dx))*((v(j+1, i) - v(j-1, i))/(2 * dy)));
         term3 = (1/Re) * (((v(j, i+1) - 2 * v(j, i) + v(j, i-1))/(dx2))+((v(j+1, i) - 2 * v(j, i) + v(j-1, i))/(dy2)));
+      
         
         v(j, i) = v(j, i) + dt * (term1 + term2 + term3);
     end
